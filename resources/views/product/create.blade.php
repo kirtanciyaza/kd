@@ -32,6 +32,13 @@
       </div>
     </div>
     <div class="form-group">
+        <label class="control-label col-sm-2" for="cmp">compare price:</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="cmp" placeholder="Enter compare price" name="cmp">
+        </div>
+    </div>
+
+    <div class="form-group">
         <label class="control-label col-sm-2" for="status">Status:</label>
       <div class="col-sm-10">
         <select class="form-control" name="status">
@@ -49,6 +56,10 @@
   </form>
 </div>
 @endsection
+
+
+
+
 
 
 

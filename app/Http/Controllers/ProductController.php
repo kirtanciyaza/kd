@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Art;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $product = Product::with('images')->get();
+        $product = Product::with('images','art')->get();
 
 
         return view('product.index',compact('product'));
@@ -29,6 +30,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required|string|max:255',
             'desc' => 'required|string|max:255',
@@ -44,6 +46,11 @@ class ProductController extends Controller
         $product->status = $request->status;
         $product->save();
 
+        $art = new Art();
+        $art->product_id = $product->id;
+        $art->cmp = $request->cmp;
+        $art->type = $request->type;
+        $art->save();
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -62,7 +69,7 @@ class ProductController extends Controller
     public function show(Request $request, $id)
     {
 
-        $product = Product::with('images')->find($id);
+        $product = Product::with('images','art')->find($id);
 
         return view('product.show',compact('product'));
 
@@ -70,7 +77,7 @@ class ProductController extends Controller
 
     public function edit(Request $request , $id)
     {
-        $product = Product::with('images')->find($id);
+        $product = Product::with('images','art')->find($id);
 
         return view('product.edit',compact('product'));
     }
@@ -78,15 +85,14 @@ class ProductController extends Controller
     public function update(Request $request, $id)
 {
 
-    $product = Product::with('images')->findOrFail($id);
+    $product = Product::with('images','art')->findOrFail($id);
 
-    // Validate the request data
     $request->validate([
         'name' => 'required|string|max:255',
         'desc' => 'nullable|string',
         'price' => 'required|numeric',
         'status' => 'required|string|in:Default,Yes,No',
-        'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'images.*' => 'nullable|image',
         'delete_images.*' => 'nullable|exists:product_images,id',
     ]);
 
@@ -96,6 +102,12 @@ class ProductController extends Controller
         'price' => $request->price,
         'status' => $request->status,
     ]);
+
+    $art = Art::find($product->id);
+    $art->product_id = $product->id;
+    $art->cmp = $request->cmp;
+    $art->type = $request->type;
+    $art->save();
 
 
     if ($request->hasFile('images')) {
@@ -176,9 +188,9 @@ class ProductController extends Controller
     ]);
     }
 
-
-
-
-
+    public function llss()
+    {
+        return view('llss');
+    }
 
 }

@@ -16,4 +16,10 @@ class Product extends Model
 
 
     }
+    public function art()
+    {
+        return $this->hasMany(Art::class);
+
+
+    }
 }

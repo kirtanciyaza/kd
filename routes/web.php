@@ -15,3 +15,4 @@ Route::get('product/edit/{id}',[ProductController::class, 'edit'])->name('produc
 Route::put('product/update/{id}',[ProductController::class, 'update'])->name('product.update');
 Route::delete('product/delete/{id}',[ProductController::class, 'delete'])->name('product.delete');
 Route::get('qrcode/{id}',[ProductController::class, 'qrcode'])->name('product.qrcode');
+Route::get('/test',[ProductController::class, 'llss'])->name('llss');

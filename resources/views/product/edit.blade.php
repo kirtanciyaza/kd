@@ -17,7 +17,7 @@
 
 <div class="container">
  <h2>edit product form</h2>
- <p><a href="{{ route('product.index') }}" class="btn btn-primary" > BACK</a></p>
+ <p><a href="{{ route('product.index') }}" class="btn btn-primary">BACK</a></p>
  <form class="form-horizontal" action="{{ route('product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
    @csrf
    @method('PUT')
@@ -57,6 +57,15 @@
        <input type="number" class="form-control" id="price" placeholder="Enter price" name="price" value="{{ $product->price }}">
      </div>
    </div>
+
+   <div class="form-group">
+    <label class="control-label col-sm-2" for="cmp">compare price:</label>
+    <div class="col-sm-10">
+        @foreach ($product->art as $cms)
+      <input type="number" class="form-control" id="cmp" placeholder="Enter compare price" name="cmp" value="{{ $cms->cmp }}">
+      @endforeach
+    </div>
+    </div>
 
    <div class="form-group">
        <label class="control-label col-sm-2" for="status">Status:</label>

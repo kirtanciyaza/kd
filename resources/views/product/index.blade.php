@@ -22,6 +22,7 @@
                     <th>Name</th>
                     <th>Description</th>
                     <th>Price</th>
+                    <th>compaire price</th>
                     <th>Image</th>
                     <th>Status</th>
                     <th>click to download qr</th>
@@ -34,6 +35,11 @@
                         <td>{{ $item->name }}</td>
                         <td>{!! $item->desc !!}</td>
                         <td>{{ $item->price }}</td>
+                        <td>
+                            @foreach ($item->art as $ar)
+                                {{ $ar->cmp }}
+                            @endforeach
+                        </td>
                         <td>
                             @foreach ($item->images as $img)
                                 <img src="{{ asset('images/' . $img->image) }}" alt="Product Image"

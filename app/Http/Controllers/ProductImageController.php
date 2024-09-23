@@ -89,7 +89,6 @@ class ProductImageController extends Controller
 
     $product = Product::with('images')->findOrFail($id);
 
-    // Validate the request data
     $request->validate([
         'name' => 'required|string|max:255',
         'desc' => 'nullable|string',
@@ -168,4 +167,6 @@ class ProductImageController extends Controller
 
           ],200);
     }
+
+
 }
